@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block block_1 %}
+    <div class="top_article">
+        <div class="article_1"></div>
+        <div class="col-md-3">
+            <div class="bg-success create_left">
+                <a class="create_left_span" href="/new_article">随笔</a>
+                <a class="create_left_span" href="/new_classify">管理分类</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>标题</th>
+                        <th>时间</th>
+                        <th>删除</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% csrf_token %}
+                    {% for article_dict in article_list %}
+                        <tr class="article_manage">
+                            <td>{{ article_dict.nid }}</td>
+                            <td>{{ article_dict.title }}</td>
+                            <td>{{ article_dict.time }}</td>
+                            <td><button class="btn btn-danger delete_article" nid={{ article_dict.nid }}>删除</button></td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            {#删除文章#}
+            $(".delete_article").click(function () {
+                var nid = $(this).attr("nid");
+                $.ajax({
+                    url:"/delete/",
+                    type:"post",
+                    data:{
+                        "csrfmiddlewaretoken":$("[name='csrfmiddlewaretoken']").val(),
+                        "nid":nid,
+                    },
+                    success:function (data) {
+                        if(data.succeed){
+                            $("[nid="+nid+"]").parent().parent().remove();
+                        }
+                    }
+                })
+            });
+        })
+    </script>
+{% endblock %}

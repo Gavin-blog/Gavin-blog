@@ -1,0 +1,41 @@
+{% extends "base.html"%}
+{% block block_1 %}
+    <div class="top_article">
+        <div class="article_1"></div>
+        <div class="top_article_2">
+            {#  左边公示栏  #}
+            <div class="col-md-3 article_left">
+                {#    日历     #}
+                <div class="calendar bg-success">
+                    日历
+                </div>
+                {#    分类     #}
+                <div class="bg-success classify">
+                    {% for foo in article_2.classify_list %}
+                        <a class="classify_1" href="\classify_article\{{ foo.0 }}">{{ foo.0 }}({{ foo.1 }})</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {#       内容部分        #}
+            <div class="col-md-9">
+                {% for foo in article_2.article_list %}
+                    <a class="classify_article_1" href="/article/{{ foo.4 }}">
+                        <span class = "classify_article_title">{{ foo.0 }}</span>
+                        <span class = "classify_article_content">{{ foo.1 }}</span>
+                        <div class="classify_article_2">
+                            <span class="classify_article_time">{{ foo.2 }}</span>
+                            <div class="glyphicon glyphicon-edit classify_article_comment">
+                            <span class="comment_count_span">{{ foo.3 }}</span>
+                        </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+
+        })
+    </script>
+{% endblock %}

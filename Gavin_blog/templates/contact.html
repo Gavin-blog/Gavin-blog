@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block block_1 %}
+    <style type="">
+        .contack{
+            width: 1140px;
+            margin: 0 auto;
+        }
+        .contack_img{
+            width: 360px;
+        }
+        .contack_left{
+            left: 100px;
+        }
+
+    </style>
+    <div class="contack">
+        <div class="article_1"></div>
+        <div>
+            {#    QQ    #}
+            <div class="col-md-5 contack_left">
+                <img src="/static/Gavin/qq.png" alt="出错" class="contack_left contack_img">
+            </div>
+            <div class="col-md-2 contack_middle">
+
+            </div>
+            {#    微信    #}
+            <div class="col-md-5 contack_right">
+                <img src="/static/Gavin/weixin.jpg" alt="出错" class="contack_right contack_img">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

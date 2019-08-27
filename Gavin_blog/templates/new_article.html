@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gavin</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script type="text/javascript" src="/static/jQuery/jQuery%20JavaScript%20Library%20v3.3.1.js"></script>
+    <style type="text/css">
+        .big{
+            width:800px;
+            margin:0 auto;
+        }
+        .top{
+            margin-top: 20px;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: #6e6e6e;
+        }
+        .top_2{
+            width: 100%;
+            height:10px;
+            background-color: #afb7b0;
+        }
+        .title{
+            margin-top: 20px;
+        }
+        .title span{
+            display: block;
+            font-size: 20px ;
+            margin-left: 10px;
+            margin-bottom:10px;
+        }
+        .button_1{
+            margin-top:10px;
+            cursor: pointer;
+        }
+        .ariticle{
+            margin-top: 10px;
+            display: block;
+            font-size: 18px ;
+            margin-bottom:10px;
+        }
+        .classify_1{
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="big">
+        <div class="top">
+            Gavin 新随笔
+            <div class="top_2"></div>
+        </div>
+        <div>
+            {% csrf_token %}
+            {#    标题      #}
+            <div class="title">
+                <span>标题</span>
+                <input class="form-control" type="text" id="title" placeholder="请输入标题">
+            </div>
+            {#    文本内容     #}
+            <div class="ariticle">
+                <span class="ariticle_1">文本内容</span>
+                <textarea name="" id="add_article" cols="30" rows="10"></textarea>
+            </div>
+            {#    分类     #}
+            <div class="classify">
+                <span class="classify_1">所属分类：</span>
+                <select name="from" id="classify_2">
+                    {% for classify in classify_list %}
+                        <option value={{ classify.nid }}>{{ classify.classify_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {#    提交     #}
+            <button class="btn btn-primary button_1" id="button_1">提交</button>
+        </div>
+    </div>
+    <script charset="utf-8" src="/static/kindeditor/kindeditor-all.js"></script>
+    <script>
+            KindEditor.ready(function(K) {
+                    window.editor = K.create('#add_article',{
+                        width:"800px",
+                        uploadJson:"/upload/",
+                        extraFileUploadParams:{
+                        "csrfmiddlewaretoken":$("[name='csrfmiddlewaretoken']").val(),},
+                        filePostName:"upload_img",
+                    });
+            });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            {#使用ajax发送文章的内容#}
+            $(".button_1").click(function () {
+                var title = $("#title").val();
+                var article = window.editor.html();
+                var classify = $("#classify_2").val();
+                $.ajax(
+                {
+                    url:"",
+                    type:"post",
+                    data:{
+                        "csrfmiddlewaretoken":$("[name='csrfmiddlewaretoken']").val(),
+                        "title":title,
+                        "article":article,
+                        "classify":classify,
+                    },
+                    success:function (data) {
+                        if(data.succeed){
+                            location.href = "/create_article/"
+                        }else
+                        {console.log("失败")}
+                    }
+                }
+            )
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gavin</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/jQuery/jQuery%20JavaScript%20Library%20v3.3.1.js"></script>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/article.css">
+    <link rel="stylesheet" href="/static/css/create_article.css">
+    <link rel="stylesheet" href="/static/css/classify_article.css">
+    <link rel="stylesheet" href="/static/css/contack.css">
+
+</head>
+<body>
+    <div class="event">
+        <div class="top_head">
+            <a class="head_left" href="/home">
+                首页
+            </a>
+            <a class="head_left" href="/contact">
+                联系方式
+            </a>
+            {% if request.user.is_anonymous %}
+                <a class="head_right" href="/login">登录</a>
+            {% else %}
+                <a class="head_right" href="/logout">{{ request.user }}注销</a>
+                <a class="head_right" href="/create_article">管理</a>
+            {% endif %}
+        </div>
+        {% block block_1 %}
+
+        {% endblock %}
+        <div class="base_bottom_1">
+            <div class="base_bottom_2"></div>
+            <div class="base_bottom_3">-Gavin 独立开发(1.0版本)-</div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        {# 当页面高度小于浏览器高度时，div等于浏览器高度，否则使用自己的高度 #}
+        $(function () {
+          var height_1 = $(".event").css("height");
+          var height_2 = $("body").css("height");
+          console.log(height_1)
+          console.log(height_2)
+          if (parseInt(height_2)>parseInt(height_1)){
+              $(".base_bottom_1").css({bottom:"0"});
+              $(".event").addClass("default");
+          }else{
+              $(".event").removeClass("default");
+              $(".base_bottom_1").css({bottom:"-60px"})
+          }
+          {#  控制文章列表的悬浮颜色 #}
+          $(".bottom_article").hover(
+              function () {
+                  $(this).css({backgroundColor:"#302e31"});
+                  $(this).find(".title").css({color:"#f8f8f8"});
+                  $(this).find(".content").css({color:"#d9d9d9"});
+                  $(this).find('.time').css({color:"#bfbfbf"});
+                  $(this).find(".comment_count").css({color:"#bfbfbf"})
+              },
+              function () {
+                  $(this).css({backgroundColor:"#f1f1f1"});
+                  $(this).find(".title").css({color:"#7b7b7b"});
+                  $(this).find(".content").css({color:"#838383"});
+                  $(this).find('.time').css({color:"#a6a6a6"});
+                  $(this).find('.comment_count').css({color:"#a6a6a6"});
+              }
+          );
+
+
+        })
+    </script>
+</body>
+</html>

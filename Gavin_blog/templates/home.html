@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block block_1 %}
+    <div class="top">
+            <span class="top_sapn1">{{ name }}的个人博客</span>
+            <span class="top_sapn2">{{ name }} personal blog</span>
+    </div>
+    <div class="article">
+        {#     文章列表       #}
+            <div class="article_top"></div>
+            {% for a in article %}
+                <a href="/article/{{ a.4 }}">
+                    <div class="bottom_article">
+                        <span class="title">{{ a.0 }}</span>
+                        <span class="content">{{ a.1 }}</span>
+                        <span class="time">{{ a.2 }}</span>
+                        <div class="glyphicon glyphicon-edit comment_count">
+                            <span class="comment_count_span">{{ a.3 }}</span>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    <div class="bottom_bottom">
+    </div>
+        <script type="text/javascript">
+        $(function () {
+          {#  悬浮改变文章的颜色 #}
+          $(".bottom_article").hover(
+              function () {
+                  $(this).css({backgroundColor:"#302e31"});
+                  $(this).find(".title").css({color:"#f8f8f8"});
+                  $(this).find(".content").css({color:"#d9d9d9"});
+                  $(this).find('.time').css({color:"#bfbfbf"});
+                  $(this).find(".comment_count").css({color:"#bfbfbf"})
+              },
+              function () {
+                  $(this).css({backgroundColor:"#f1f1f1"});
+                  $(this).find(".title").css({color:"#7b7b7b"});
+                  $(this).find(".content").css({color:"#838383"});
+                  $(this).find('.time').css({color:"#a6a6a6"});
+                  $(this).find('.comment_count').css({color:"#a6a6a6"});
+              }
+          );
+
+        })
+    </script>
+{% endblock %}
+
